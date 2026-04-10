@@ -6,590 +6,693 @@
   <title>Encarni Rodriguez — Salón de Estética</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg:       #faf8f5;
-      --bg-alt:   #f3ede6;
-      --dark:     #1c1714;
-      --muted:    #7a6a5f;
-      --accent:   #b07348;
-      --accent-d: #8e5c38;
-      --accent-l: #edddd0;
-      --border:   #e4d8ce;
+      --bg-alt:   #f2ebe2;
+      --dark:     #1a1512;
+      --muted:    #7a6b5e;
+      --accent:   #a86b42;
+      --accent-d: #875436;
+      --accent-l: #ecddd0;
+      --border:   #e2d6cb;
       --white:    #ffffff;
       --nav-h:    68px;
+      --r:        1.2rem;
     }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--dark);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Outfit',system-ui,sans-serif; background:var(--bg); color:var(--dark); overflow-x:hidden; line-height:1.65; }
+    img { display:block; max-width:100%; }
 
-    /* ─── NAV ─── */
+    /* ─ UTILS ─ */
+    .wrap { max-width:1300px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3.5rem); }
+    .ey {
+      font-size:.67rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--accent); display:inline-flex; align-items:center; gap:.6rem; margin-bottom:1rem;
+    }
+    .ey::before { content:''; display:block; width:18px; height:1px; background:currentColor; }
+    .sh { font-size:clamp(1.7rem,3vw,2.65rem); font-weight:300; letter-spacing:-.03em; line-height:1.15; }
+    .sh strong { font-weight:600; }
+
+    /* ─ TOP BAR ─ (inspirado en Carmen: horarios visibles) */
+    .topbar {
+      background:var(--dark); color:rgba(255,255,255,.55);
+      font-size:.7rem; letter-spacing:.06em; padding:.55rem 0;
+    }
+    .topbar-in {
+      max-width:1300px; margin:0 auto;
+      padding:0 clamp(1.25rem,4vw,3.5rem);
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    }
+    .topbar-item { display:flex; align-items:center; gap:.5rem; }
+    .topbar-item svg { flex-shrink:0; }
+    .topbar-ig { color:var(--accent); text-decoration:none; font-weight:500; transition:opacity .2s; }
+    .topbar-ig:hover { opacity:.75; }
+
+    /* ─ NAV ─ */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: var(--nav-h);
-      display: flex; align-items: center;
-      padding: 0 clamp(1.25rem, 4vw, 3rem);
-      transition: background .35s, box-shadow .35s;
+      position:sticky; top:0; z-index:200;
+      height:var(--nav-h); padding:0 clamp(1.25rem,4vw,3rem);
+      display:flex; align-items:center;
+      background:rgba(250,248,245,.96);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 1px 0 var(--border);
     }
-    .nav.solid {
-      background: rgba(250,248,245,.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 0 var(--border);
-    }
-    .nav-inner {
-      width: 100%; max-width: 1320px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo { font-size: 1.05rem; font-weight: 600; letter-spacing: -.02em; text-decoration: none; color: var(--dark); }
-    .logo em { font-style: normal; color: var(--accent); }
-    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
-    .nav-links a { font-size: .85rem; color: var(--muted); text-decoration: none; letter-spacing: .02em; transition: color .2s; }
-    .nav-links a:hover { color: var(--dark); }
+    .nav-in { width:100%; max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .logo { font-size:1.05rem; font-weight:600; letter-spacing:-.02em; text-decoration:none; color:var(--dark); }
+    .logo em { font-style:normal; color:var(--accent); }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-size:.84rem; color:var(--muted); text-decoration:none; letter-spacing:.02em; transition:color .2s; }
+    .nav-links a:hover { color:var(--dark); }
     .nav-cta {
-      font-size: .85rem; font-weight: 500; padding: .5rem 1.2rem;
-      background: var(--dark); color: var(--bg); border-radius: 100px;
-      text-decoration: none; transition: background .2s, transform .1s;
+      font-size:.84rem; font-weight:500; padding:.5rem 1.3rem;
+      background:var(--accent); color:#fff; border-radius:100px;
+      text-decoration:none; transition:background .2s, transform .12s;
     }
-    .nav-cta:hover { background: var(--accent); }
-    .nav-cta:active { transform: scale(.98); }
+    .nav-cta:hover { background:var(--accent-d); }
+    .nav-cta:active { transform:scale(.97); }
 
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100dvh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      padding-top: var(--nav-h);
-    }
+    /* ─ HERO ─ (inspirado en Tacha: eslogan aspiracional) */
+    .hero { min-height:100dvh; display:grid; grid-template-columns:1fr 1fr; }
     .hero-copy {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 4rem clamp(1.25rem,4vw,3.5rem) 4rem clamp(1.25rem,5vw,5.5rem);
+      display:flex; flex-direction:column; justify-content:center;
+      padding:4.5rem clamp(1.25rem,4vw,3rem) 4.5rem clamp(1.25rem,5vw,5.5rem);
     }
-    .eyebrow {
-      font-size: .68rem; font-weight: 500; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--accent);
-      display: inline-flex; align-items: center; gap: .65rem; margin-bottom: 1.75rem;
+    .hero-kicker {
+      font-size:.8rem; font-style:italic; color:var(--accent); font-weight:300;
+      letter-spacing:.06em; margin-bottom:.75rem;
     }
-    .eyebrow::before { content:''; display:block; width:22px; height:1px; background: var(--accent); }
+    /* "a cualquier edad" — influencia Tacha */
     .hero-title {
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      font-weight: 300; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.4rem;
+      font-size:clamp(2.4rem,4.8vw,4.6rem);
+      font-weight:300; letter-spacing:-.04em; line-height:1.06; margin-bottom:.4rem;
     }
-    .hero-title strong { font-weight: 600; display: block; }
-    .hero-sub { font-size: .97rem; color: var(--muted); max-width: 38ch; line-height: 1.8; margin-bottom: 2.5rem; }
-    .btn-row { display: flex; align-items: center; gap: 1.5rem; }
+    .hero-title strong { font-weight:700; }
+    .hero-subtitle {
+      font-size:clamp(1.1rem,1.8vw,1.5rem);
+      font-weight:300; font-style:italic; color:var(--muted);
+      letter-spacing:-.01em; margin-bottom:1.6rem;
+    }
+    .hero-desc { font-size:.97rem; color:var(--muted); max-width:38ch; line-height:1.8; margin-bottom:2.5rem; }
+    .hero-btns { display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap; }
     .btn-fill {
-      font-size: .9rem; font-weight: 500; padding: .8rem 1.9rem;
-      background: var(--accent); color: #fff; border-radius: 100px;
-      text-decoration: none; transition: background .2s, transform .1s;
+      font-size:.88rem; font-weight:500; padding:.8rem 1.85rem;
+      background:var(--accent); color:#fff; border-radius:100px;
+      text-decoration:none; transition:background .2s, transform .12s;
     }
-    .btn-fill:hover { background: var(--accent-d); }
-    .btn-fill:active { transform: scale(.98) translateY(1px); }
-    .btn-text {
-      font-size: .88rem; color: var(--muted); text-decoration: none;
-      display: flex; align-items: center; gap: .4rem; transition: color .2s;
+    .btn-fill:hover { background:var(--accent-d); }
+    .btn-fill:active { transform:scale(.97) translateY(1px); }
+    /* CTA diagnóstico — influencia Tacha */
+    .btn-outline {
+      font-size:.88rem; font-weight:500; padding:.8rem 1.85rem;
+      border:1.5px solid var(--accent); color:var(--accent); border-radius:100px;
+      text-decoration:none; transition:background .2s, color .2s, transform .12s;
     }
-    .btn-text:hover { color: var(--dark); }
-    .hero-img { position: relative; overflow: hidden; }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-    .hero-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to right, var(--bg) 0%, transparent 16%);
-    }
-    .hero-pills {
-      display: flex; gap: .75rem; margin-top: 3rem; flex-wrap: wrap;
-    }
-    .pill {
-      font-size: .7rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
-      padding: .35rem .9rem; border: 1px solid var(--border); border-radius: 100px; color: var(--muted);
-    }
+    .btn-outline:hover { background:var(--accent); color:#fff; }
+    .btn-outline:active { transform:scale(.97) translateY(1px); }
+    .hero-trust { margin-top:3rem; padding-top:2rem; border-top:1px solid var(--border); display:flex; gap:2.5rem; }
+    .t-n { font-size:1.8rem; font-weight:600; letter-spacing:-.04em; }
+    .t-l { font-size:.66rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-top:.15rem; }
+    .hero-img { position:relative; overflow:hidden; }
+    .hero-img img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+    .hero-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to right,var(--bg) 0%,transparent 15%); }
 
-    /* ─── BAND ─── */
-    .band { background: var(--dark); padding: .85rem 0; overflow: hidden; }
-    .band-track {
-      display: flex; white-space: nowrap;
-      animation: slide 28s linear infinite;
-    }
-    .band-track:hover { animation-play-state: paused; }
-    .band-item {
-      display: inline-flex; align-items: center; gap: 1.25rem;
-      padding: 0 1.4rem; font-size: .68rem; letter-spacing: .13em;
-      text-transform: uppercase; color: var(--accent-l);
-    }
-    .band-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
-    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    /* ─ BAND ─ */
+    .band { background:var(--dark); padding:.8rem 0; overflow:hidden; }
+    .band-track { display:flex; white-space:nowrap; animation:slide 30s linear infinite; }
+    .band-track:hover { animation-play-state:paused; }
+    .bi { display:inline-flex; align-items:center; gap:1.2rem; padding:0 1.4rem; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(236,221,208,.65); }
+    .dot { width:4px; height:4px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+    @keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ─── SECTION ─── */
-    section { padding: 7rem 0; }
-    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(1.25rem,4vw,3.5rem); }
-    .sec-label {
-      font-size: .68rem; font-weight: 500; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--accent);
-      display: inline-flex; align-items: center; gap: .75rem; margin-bottom: 1.1rem;
-    }
-    .sec-label::after { content:''; display:block; width:30px; height:1px; background: var(--accent); }
-    .sec-title {
-      font-size: clamp(1.7rem, 3vw, 2.6rem);
-      font-weight: 300; letter-spacing: -.03em; line-height: 1.15; max-width: 26ch;
-    }
-    .sec-title strong { font-weight: 600; }
+    /* ─ PROMO STRIP ─ (influencia Carmen: promociones visibles) */
+    .promo-strip { background:var(--accent-l); padding:1.1rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .promo-in { max-width:1300px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3.5rem); display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .promo-text { font-size:.88rem; font-weight:500; color:var(--accent-d); }
+    .promo-text span { font-weight:300; color:var(--muted); margin-left:.5rem; }
+    .promo-cta { font-size:.8rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; transition:opacity .2s; }
+    .promo-cta:hover { opacity:.7; }
 
-    /* ─── SERVICIOS ─── */
-    .services { background: var(--bg); }
-    /* Servicio 1 — Radiofrecuencia: full-width featured */
-    .feat {
-      display: grid; grid-template-columns: 1.3fr 1fr;
-      border-radius: 1.25rem; overflow: hidden;
-      margin-bottom: 1.25rem;
-    }
-    .feat-img { position: relative; overflow: hidden; }
-    .feat-img img { width: 100%; height: 100%; object-fit: cover; min-height: 420px; transition: transform .6s ease; }
-    .feat:hover .feat-img img { transform: scale(1.04); }
-    .feat-body {
-      background: var(--dark); color: #fff;
-      padding: clamp(2rem,4vw,3.5rem);
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .feat-num { font-size: 4.5rem; font-weight: 600; letter-spacing: -.05em; color: var(--accent); opacity: .22; line-height: 1; margin-bottom: .75rem; }
-    .feat-name { font-size: clamp(1.4rem,2.5vw,2rem); font-weight: 300; letter-spacing: -.02em; line-height: 1.2; margin-bottom: 1rem; }
-    .feat-name strong { font-weight: 600; }
-    .feat-desc { font-size: .9rem; color: rgba(255,255,255,.5); line-height: 1.8; max-width: 32ch; margin-bottom: 1.75rem; }
-    .tag { display: inline-flex; font-size: .65rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: .35rem .9rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 100px; width: fit-content; }
+    /* ─ SECTION ─ */
+    .section { padding:7.5rem 0; }
+    .shdr { margin-bottom:3.5rem; }
 
-    /* Servicios 2 y 3 — dos columnas */
-    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 1.25rem; overflow: hidden;
-      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
-    }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px -12px rgba(176,115,72,.2); }
-    .card-img { overflow: hidden; aspect-ratio: 16/9; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .card:hover .card-img img { transform: scale(1.06); }
-    .card-body { padding: 1.75rem; }
-    .card-name { font-size: 1.05rem; font-weight: 500; letter-spacing: -.01em; margin-bottom: .5rem; }
-    .card-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; }
-    .card-foot {
-      padding: .9rem 1.75rem; border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .dur { font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
-    .arrow {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--accent-l); display: grid; place-items: center;
-      color: var(--accent); transition: background .2s, color .2s;
-    }
-    .card:hover .arrow { background: var(--accent); color: #fff; }
+    /* ─ SERVICIOS ─ */
+    .feat { display:grid; grid-template-columns:1.25fr 1fr; border-radius:var(--r); overflow:hidden; margin-bottom:1.25rem; }
+    .feat-img { overflow:hidden; }
+    .feat-img img { width:100%; height:100%; object-fit:cover; min-height:460px; transition:transform .6s; }
+    .feat:hover .feat-img img { transform:scale(1.04); }
+    .feat-body { background:var(--dark); color:#fff; padding:clamp(2rem,4vw,3.75rem); display:flex; flex-direction:column; justify-content:center; }
+    .feat-n { font-size:5rem; font-weight:700; letter-spacing:-.06em; color:var(--accent); opacity:.17; line-height:1; margin-bottom:.75rem; }
+    .feat-name { font-size:clamp(1.5rem,2.5vw,2.1rem); font-weight:300; letter-spacing:-.025em; line-height:1.2; margin-bottom:.3rem; }
+    .feat-name strong { font-weight:600; }
+    .feat-bdg { font-size:.63rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:1.25rem; }
+    .feat-desc { font-size:.9rem; color:rgba(255,255,255,.48); line-height:1.8; max-width:33ch; margin-bottom:1.85rem; }
+    .feat-list { display:flex; flex-direction:column; gap:.6rem; }
+    .feat-li { display:flex; align-items:flex-start; gap:.65rem; font-size:.85rem; color:rgba(255,255,255,.68); }
+    .feat-li::before { content:''; display:block; width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.55rem; }
 
-    /* ─── GALERÍA ─── */
-    .gallery { background: var(--bg-alt); }
-    .gallery-grid {
-      columns: 3; column-gap: 1rem; margin-top: 3.5rem;
-    }
-    .gal-item { break-inside: avoid; margin-bottom: 1rem; border-radius: .875rem; overflow: hidden; position: relative; }
-    .gal-item img { width: 100%; display: block; transition: transform .5s; }
-    .gal-item:hover img { transform: scale(1.05); }
-    .gal-item::after {
-      content:''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(28,23,20,.4) 0%, transparent 50%);
-      opacity: 0; transition: opacity .3s;
-    }
-    .gal-item:hover::after { opacity: 1; }
+    .cards-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .card { background:var(--white); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s; }
+    .card:hover { transform:translateY(-6px); box-shadow:0 20px 48px -14px rgba(168,107,66,.18); }
+    .card-img { overflow:hidden; aspect-ratio:16/9; }
+    .card-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .card:hover .card-img img { transform:scale(1.07); }
+    .card-body { padding:1.75rem; }
+    .card-name { font-size:1.05rem; font-weight:500; letter-spacing:-.015em; margin-bottom:.5rem; }
+    .card-bdg { font-size:.62rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.75rem; }
+    .card-desc { font-size:.85rem; color:var(--muted); line-height:1.75; }
+    .card-foot { padding:.95rem 1.75rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .dur { font-size:.72rem; color:var(--muted); }
+    .arr { width:30px; height:30px; border-radius:50%; background:var(--accent-l); display:grid; place-items:center; color:var(--accent); transition:background .2s, color .2s; }
+    .card:hover .arr { background:var(--accent); color:#fff; }
 
-    /* ─── NOSOTROS ─── */
-    .about { background: var(--white); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: center; }
-    .about-img-wrap { position: relative; }
-    .about-img-wrap::before {
-      content:''; position: absolute;
-      top: -1.25rem; left: -1.25rem; right: 1.25rem; bottom: 1.25rem;
-      border: 1px solid var(--accent-l); border-radius: 1.25rem;
-    }
-    .about-img { position: relative; z-index: 1; border-radius: 1.25rem; overflow: hidden; aspect-ratio: 4/5; }
-    .about-img img { width: 100%; height: 100%; object-fit: cover; }
-    .about-badge {
-      position: absolute; bottom: 1.75rem; right: -1.75rem; z-index: 2;
-      background: #fff; border-radius: .875rem; padding: 1.1rem 1.4rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,.1); border: 1px solid var(--border); text-align: center; min-width: 120px;
-    }
-    .badge-n { font-size: 1.9rem; font-weight: 600; letter-spacing: -.04em; color: var(--accent); }
-    .badge-t { font-size: .65rem; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; margin-top: .15rem; }
-    .about-title { font-size: clamp(1.6rem,2.8vw,2.5rem); font-weight: 300; letter-spacing: -.03em; line-height: 1.2; margin-bottom: 1.5rem; }
-    .about-title strong { font-weight: 600; }
-    .about-p { font-size: .97rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; max-width: 46ch; }
-    .about-list { margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
-    .about-li { display: flex; gap: .65rem; align-items: flex-start; }
-    .about-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: .55rem; }
-    .about-li span { font-size: .875rem; }
+    /* ─ ANTES / DESPUÉS ─ */
+    .ba { background:var(--dark); color:#fff; }
+    .ba-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3.5rem; }
+    .ba-card { border-radius:var(--r); overflow:hidden; }
+    .ba-imgs { display:grid; grid-template-columns:1fr 1fr; position:relative; }
+    .ba-imgs img { width:100%; aspect-ratio:3/4; object-fit:cover; }
+    .ba-labels { position:absolute; top:.75rem; left:0; right:0; display:flex; justify-content:space-between; padding:0 .75rem; }
+    .ba-lbl { font-size:.6rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:.25rem .6rem; border-radius:100px; }
+    .bl { background:rgba(0,0,0,.45); color:rgba(255,255,255,.65); }
+    .baf { background:var(--accent); color:#fff; }
+    .ba-sep { position:absolute; top:0; bottom:0; left:50%; width:2px; background:rgba(255,255,255,.55); }
+    .ba-foot { background:rgba(255,255,255,.05); padding:1rem 1.25rem; border-top:1px solid rgba(255,255,255,.08); }
+    .ba-tr { font-size:.78rem; font-weight:500; color:var(--accent-l); margin-bottom:.2rem; }
+    .ba-ses { font-size:.68rem; color:rgba(255,255,255,.38); }
+    .ba-note { margin-top:1.5rem; font-size:.78rem; color:rgba(255,255,255,.28); text-align:center; }
 
-    /* ─── CONTACTO ─── */
-    .contact { background: var(--dark); color: #fff; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .c-label { font-size: .68rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
-    .c-title { font-size: clamp(1.6rem,3vw,2.8rem); font-weight: 300; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1.25rem; }
-    .c-title strong { font-weight: 600; }
-    .c-desc { font-size: .95rem; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 36ch; margin-bottom: 2.25rem; }
-    .c-links { display: flex; flex-direction: column; gap: 0; margin-bottom: 2.25rem; }
-    .c-link {
-      display: flex; align-items: center; gap: 1rem;
-      text-decoration: none; color: rgba(255,255,255,.75); font-size: .9rem;
-      padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,.07); transition: color .2s;
-    }
-    .c-link:hover { color: var(--accent); }
-    .c-icon {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
-      display: grid; place-items: center; flex-shrink: 0;
-    }
-    .ig-btn {
-      display: inline-flex; align-items: center; gap: .7rem;
-      font-size: .9rem; font-weight: 500; padding: .8rem 1.75rem;
-      background: var(--accent); color: #fff; border-radius: 100px;
-      text-decoration: none; transition: background .2s, transform .1s;
-    }
-    .ig-btn:hover { background: var(--accent-d); }
-    .ig-btn:active { transform: scale(.98) translateY(1px); }
-    .c-form {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 1.5rem; padding: clamp(1.75rem,3vw,2.75rem);
-    }
-    .f-title { font-size: 1.1rem; font-weight: 500; margin-bottom: 1.75rem; }
-    .fg { margin-bottom: 1.1rem; }
-    .flabel { display: block; font-size: .68rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .45rem; }
-    .finput {
-      width: 100%; padding: .8rem 1.1rem;
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: .6rem; color: #fff;
-      font-family: 'Outfit', sans-serif; font-size: .93rem; outline: none; transition: border-color .2s;
-    }
-    .finput::placeholder { color: rgba(255,255,255,.2); }
-    .finput:focus { border-color: var(--accent); }
-    textarea.finput { resize: vertical; min-height: 100px; }
-    .fsubmit {
-      width: 100%; margin-top: .5rem; padding: .85rem;
-      background: var(--accent); border: none; border-radius: .6rem;
-      color: #fff; font-family: 'Outfit', sans-serif; font-size: .93rem; font-weight: 500;
-      cursor: pointer; transition: background .2s, transform .1s;
-    }
-    .fsubmit:hover { background: var(--accent-d); }
-    .fsubmit:active { transform: scale(.98) translateY(1px); }
+    /* ─ TESTIMONIOS ─ (influencia Tacha: con nombre + tratamiento) */
+    .testimonios { background:var(--bg-alt); }
+    .tg { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3.5rem; }
+    .tc { background:var(--white); border-radius:var(--r); padding:2rem; border:1px solid var(--border); }
+    .stars { display:flex; gap:.25rem; margin-bottom:1rem; }
+    .star { width:13px; height:13px; fill:var(--accent); }
+    .tq { font-size:.9rem; color:var(--muted); line-height:1.8; margin-bottom:1.4rem; font-style:italic; }
+    .tauth { display:flex; align-items:center; gap:.85rem; }
+    .tav { width:38px; height:38px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .tav img { width:100%; height:100%; object-fit:cover; }
+    .tname { font-size:.88rem; font-weight:500; }
+    .tdet { font-size:.7rem; color:var(--muted); margin-top:.1rem; }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--dark); border-top: 1px solid rgba(255,255,255,.06);
-      padding: 1.6rem 0;
-    }
-    .foot-inner {
-      max-width: 1320px; margin: 0 auto; padding: 0 clamp(1.25rem,4vw,3.5rem);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .foot-logo { font-size: .93rem; font-weight: 500; color: rgba(255,255,255,.4); text-decoration: none; }
-    .foot-logo em { font-style: normal; color: var(--accent); }
-    .foot-copy { font-size: .75rem; color: rgba(255,255,255,.22); }
-    .foot-ig { font-size: .75rem; color: rgba(255,255,255,.22); text-decoration: none; transition: color .2s; }
-    .foot-ig:hover { color: var(--accent); }
+    /* ─ GALERÍA ─ */
+    .galeria { background:var(--bg); }
+    .gal { columns:3; column-gap:1rem; margin-top:3.5rem; }
+    .gi { break-inside:avoid; margin-bottom:1rem; border-radius:.9rem; overflow:hidden; position:relative; }
+    .gi img { width:100%; display:block; transition:transform .5s; }
+    .gi:hover img { transform:scale(1.05); }
+    .gi::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(26,21,18,.4) 0%,transparent 55%); opacity:0; transition:opacity .3s; }
+    .gi:hover::after { opacity:1; }
 
-    /* ─── REVEAL ─── */
-    .r { opacity: 0; transform: translateY(20px); transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1); }
-    .r.on { opacity: 1; transform: none; }
-    .d1 { transition-delay: .08s; } .d2 { transition-delay: .18s; } .d3 { transition-delay: .28s; }
+    /* ─ FUNDADORA ─ (influencia Tacha: historia con herencia) */
+    .fundadora { background:var(--white); }
+    .fg-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5.5rem; align-items:center; }
+    .fg-img-wrap { position:relative; }
+    .fg-img-wrap::before { content:''; position:absolute; top:-1.25rem; left:-1.25rem; right:1.25rem; bottom:1.25rem; border:1px solid var(--accent-l); border-radius:var(--r); }
+    .fg-img { position:relative; z-index:1; border-radius:var(--r); overflow:hidden; aspect-ratio:4/5; }
+    .fg-img img { width:100%; height:100%; object-fit:cover; }
+    .fg-badge { position:absolute; bottom:1.75rem; right:-1.75rem; z-index:2; background:#fff; border-radius:.875rem; padding:1.1rem 1.4rem; box-shadow:0 8px 28px rgba(0,0,0,.1); border:1px solid var(--border); text-align:center; min-width:120px; }
+    .bdn { font-size:1.9rem; font-weight:600; letter-spacing:-.04em; color:var(--accent); }
+    .bdt { font-size:.62rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-top:.15rem; }
+    .fg-title { font-size:clamp(1.7rem,3vw,2.7rem); font-weight:300; letter-spacing:-.03em; line-height:1.15; margin-bottom:1.5rem; }
+    .fg-title strong { font-weight:600; }
+    /* cita estilo Tacha */
+    .fg-quote { font-size:1.05rem; font-style:italic; font-weight:300; color:var(--accent-d); border-left:2px solid var(--accent); padding-left:1.1rem; margin-bottom:1.4rem; line-height:1.6; }
+    .fg-p { font-size:.97rem; color:var(--muted); line-height:1.85; margin-bottom:1rem; max-width:46ch; }
+    .fg-list { margin-top:2.25rem; display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+    .fg-li { display:flex; gap:.65rem; align-items:flex-start; }
+    .fg-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.58rem; }
+    .fg-li span { font-size:.875rem; }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .cards { grid-template-columns: 1fr; }
-      .gallery-grid { columns: 2; }
+    /* ─ FAQ ─ */
+    .faq-sec { background:var(--bg-alt); }
+    .faq-g { display:grid; grid-template-columns:1fr 1fr; gap:0 4rem; margin-top:3.5rem; }
+    .fi { border-bottom:1px solid var(--border); }
+    .fq {
+      width:100%; background:none; border:none; text-align:left;
+      font-family:'Outfit',sans-serif; font-size:.97rem; font-weight:500; color:var(--dark);
+      cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+      padding:1.35rem 0; gap:1rem; transition:color .2s;
     }
-    @media (max-width: 768px) {
-      :root { --nav-h: 58px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-copy { padding: 2.5rem 1.25rem 2rem; }
-      .hero-img { height: 55vw; min-height: 260px; }
-      .feat { grid-template-columns: 1fr; }
-      .feat-img img { min-height: 260px; }
-      .feat-body { padding: 2rem 1.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .about-badge { right: .75rem; }
-      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .foot-inner { flex-direction: column; gap: .5rem; text-align: center; }
+    .fq:hover { color:var(--accent); }
+    .ficon { width:20px; height:20px; flex-shrink:0; border-radius:50%; background:var(--accent-l); display:grid; place-items:center; transition:background .2s, transform .3s; }
+    .fi.open .ficon { background:var(--accent); transform:rotate(45deg); }
+    .fi.open .ficon svg { color:#fff; }
+    .ficon svg { color:var(--accent); }
+    .fa { max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.16,1,.3,1); }
+    .fi.open .fa { max-height:200px; }
+    .fa p { font-size:.88rem; color:var(--muted); line-height:1.8; padding-bottom:1.25rem; }
+
+    /* ─ CONTACTO ─ (influencia Carmen: horario, dirección, formas de pago) */
+    .contacto { background:var(--dark); color:#fff; }
+    .ct-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+    .ct-ey { font-size:.67rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); display:inline-flex; align-items:center; gap:.6rem; margin-bottom:1.25rem; }
+    .ct-ey::before { content:''; display:block; width:18px; height:1px; background:currentColor; }
+    .ct-title { font-size:clamp(1.7rem,3vw,2.8rem); font-weight:300; letter-spacing:-.03em; line-height:1.15; margin-bottom:1.25rem; }
+    .ct-title strong { font-weight:600; }
+    .ct-sub { font-size:.97rem; color:rgba(255,255,255,.45); line-height:1.8; max-width:36ch; margin-bottom:2rem; }
+    /* info cards (horario, dirección) */
+    .ct-info { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; margin-bottom:2rem; }
+    .ct-ic { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:.875rem; padding:1.25rem; }
+    .ct-ic-title { font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.6rem; }
+    .ct-ic-val { font-size:.88rem; color:rgba(255,255,255,.7); line-height:1.6; }
+    .ct-links { display:flex; flex-direction:column; gap:0; margin-bottom:2rem; }
+    .ct-lnk { display:flex; align-items:center; gap:1rem; text-decoration:none; color:rgba(255,255,255,.75); font-size:.9rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,.07); transition:color .2s; }
+    .ct-lnk:hover { color:var(--accent); }
+    .ct-icon { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); display:grid; place-items:center; flex-shrink:0; }
+    .ig-btn { display:inline-flex; align-items:center; gap:.7rem; font-size:.9rem; font-weight:500; padding:.85rem 1.75rem; background:var(--accent); color:#fff; border-radius:100px; text-decoration:none; transition:background .2s, transform .12s; }
+    .ig-btn:hover { background:var(--accent-d); }
+    .ig-btn:active { transform:scale(.97) translateY(1px); }
+    .ct-form { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:1.5rem; padding:clamp(1.75rem,3vw,2.75rem); }
+    .f-title { font-size:1.1rem; font-weight:500; margin-bottom:1.75rem; }
+    .fg2 { margin-bottom:1.1rem; }
+    .flabel { display:block; font-size:.66rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.38); margin-bottom:.45rem; }
+    .finput { width:100%; padding:.8rem 1.1rem; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:.6rem; color:#fff; font-family:'Outfit',sans-serif; font-size:.93rem; outline:none; transition:border-color .2s; }
+    .finput::placeholder { color:rgba(255,255,255,.2); }
+    .finput:focus { border-color:var(--accent); }
+    select.finput option { background:#2a1f18; }
+    textarea.finput { resize:vertical; min-height:95px; }
+    .fsubmit { width:100%; margin-top:.5rem; padding:.85rem; background:var(--accent); border:none; border-radius:.6rem; color:#fff; font-family:'Outfit',sans-serif; font-size:.93rem; font-weight:500; cursor:pointer; transition:background .2s, transform .12s; }
+    .fsubmit:hover { background:var(--accent-d); }
+    .fsubmit:active { transform:scale(.97) translateY(1px); }
+
+    /* ─ FOOTER ─ */
+    footer { background:var(--dark); border-top:1px solid rgba(255,255,255,.06); padding:1.6rem 0; }
+    .foot-in { max-width:1300px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3.5rem); display:flex; align-items:center; justify-content:space-between; }
+    .foot-logo { font-size:.93rem; font-weight:500; color:rgba(255,255,255,.38); text-decoration:none; }
+    .foot-logo em { font-style:normal; color:var(--accent); }
+    .foot-copy { font-size:.73rem; color:rgba(255,255,255,.22); }
+    .foot-ig { font-size:.73rem; color:rgba(255,255,255,.22); text-decoration:none; transition:color .2s; }
+    .foot-ig:hover { color:var(--accent); }
+
+    /* ─ REVEAL ─ */
+    .r { opacity:0; transform:translateY(22px); transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1); }
+    .r.on { opacity:1; transform:none; }
+    .d1{transition-delay:.09s} .d2{transition-delay:.18s} .d3{transition-delay:.27s} .d4{transition-delay:.36s}
+
+    /* ─ RESPONSIVE ─ */
+    @media(max-width:1100px){ .ba-grid,.tg{grid-template-columns:1fr 1fr;} }
+    @media(max-width:768px){
+      :root{--nav-h:58px}
+      .topbar-in>:not(:first-child){display:none}
+      .nav-links{display:none}
+      .hero{grid-template-columns:1fr; min-height:auto}
+      .hero-copy{padding:2.5rem 1.25rem 2rem}
+      .hero-img{height:56vw; min-height:250px}
+      .feat{grid-template-columns:1fr}
+      .feat-img img{min-height:250px}
+      .feat-body{padding:2rem 1.5rem}
+      .cards-2{grid-template-columns:1fr}
+      .ba-grid,.tg{grid-template-columns:1fr}
+      .fg-grid{grid-template-columns:1fr; gap:3rem}
+      .fg-badge{right:.75rem}
+      .faq-g{grid-template-columns:1fr; gap:0}
+      .ct-grid{grid-template-columns:1fr; gap:3rem}
+      .ct-info{grid-template-columns:1fr}
+      .foot-in{flex-direction:column; gap:.5rem; text-align:center}
     }
-    @media (max-width: 480px) {
-      .gallery-grid { columns: 1; }
-      .about-list { grid-template-columns: 1fr; }
-    }
+    @media(max-width:480px){ .gal{columns:1} .fg-list{grid-template-columns:1fr} .hero-trust{gap:1.75rem} }
   </style>
 </head>
 <body>
 
+<!-- TOP BAR — horario y contacto rápido (influencia Carmen) -->
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="topbar-item">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Lun – Sáb · 9:00 – 19:00
+    </div>
+    <div class="topbar-item">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .5 1 1V20c0 .5-.5 1-1 1C9.6 21 3 14.4 3 6c0-.5.5-1 1-1h3.5c.5 0 1 .5 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.3 1l-2.2 2.2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Cita previa
+    </div>
+    <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="topbar-ig">@encarnirodriguezestetica</a>
+  </div>
+</div>
+
 <!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
+<nav class="nav">
+  <div class="nav-in">
     <a href="#" class="logo">Encarni<em>.</em></a>
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#galeria">Galería</a></li>
-      <li><a href="#salon">El salón</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#fundadora">El salón</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="nav-cta">Pedir cita</a>
+    <a href="#contacto" class="nav-cta">Reservar cita</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — eslogan aspiracional inspirado en Tacha -->
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow r">Salón de Estética Profesional</p>
-    <h1 class="hero-title r d1">
-      Tu piel merece
-      <strong>atención experta</strong>
-    </h1>
-    <p class="hero-sub r d2">
-      Tratamientos faciales, corporales y de belleza con productos de alta cosmética y técnicas profesionales adaptadas a cada persona.
-    </p>
-    <div class="btn-row r d3">
+    <p class="hero-kicker r">Centro de Estética Profesional</p>
+    <h1 class="hero-title r d1">Despertamos<br><strong>tu belleza</strong></h1>
+    <!-- "a cualquier edad" — directo de Tacha -->
+    <p class="hero-subtitle r d1">a cualquier edad</p>
+    <p class="hero-desc r d2">Tratamientos faciales y corporales con productos de alta cosmética. Protocolos adaptados a cada piel, para hombres y mujeres, en un ambiente cercano y profesional.</p>
+    <div class="hero-btns r d3">
       <a href="#contacto" class="btn-fill">Reservar cita</a>
-      <a href="#servicios" class="btn-text">
-        Ver servicios
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-          <path d="M3 7.5h9M9 4l3.5 3.5L9 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <!-- CTA diagnóstico — influencia Tacha -->
+      <a href="#contacto" class="btn-outline">Pide tu diagnóstico</a>
     </div>
-    <div class="hero-pills r d3">
-      <span class="pill">Unisex</span>
-      <span class="pill">Cita previa</span>
-      <span class="pill">Productos certificados</span>
+    <div class="hero-trust r d4">
+      <div><div class="t-n">+10</div><div class="t-l">Años de experiencia</div></div>
+      <div><div class="t-n">3</div><div class="t-l">Tratamientos estrella</div></div>
+      <div><div class="t-n">100%</div><div class="t-l">Unisex</div></div>
     </div>
   </div>
   <div class="hero-img">
-    <!-- imagen genérica de salón / piel luminosa -->
-    <img src="https://picsum.photos/seed/skincare-salon-hero/900/1100" alt="Tratamiento de cuidado facial en el salón" loading="eager" />
+    <img src="https://picsum.photos/seed/salon-face-warm-hero/900/1100" alt="Tratamiento estético profesional" loading="eager" />
   </div>
 </section>
 
 <!-- BAND -->
 <div class="band" aria-hidden="true">
   <div class="band-track">
-    <span class="band-item">Radiofrecuencia <span class="band-sep"></span></span>
-    <span class="band-item">Limpieza Facial <span class="band-sep"></span></span>
-    <span class="band-item">Maquillaje Profesional <span class="band-sep"></span></span>
-    <span class="band-item">Preparación Piel Eventos <span class="band-sep"></span></span>
-    <span class="band-item">Tratamiento Unisex <span class="band-sep"></span></span>
-    <span class="band-item">Alta Cosmética <span class="band-sep"></span></span>
-    <span class="band-item">Radiofrecuencia <span class="band-sep"></span></span>
-    <span class="band-item">Limpieza Facial <span class="band-sep"></span></span>
-    <span class="band-item">Maquillaje Profesional <span class="band-sep"></span></span>
-    <span class="band-item">Preparación Piel Eventos <span class="band-sep"></span></span>
-    <span class="band-item">Tratamiento Unisex <span class="band-sep"></span></span>
-    <span class="band-item">Alta Cosmética <span class="band-sep"></span></span>
+    <span class="bi">Radiofrecuencia<span class="dot"></span></span>
+    <span class="bi">Limpieza Facial Profunda<span class="dot"></span></span>
+    <span class="bi">Maquillaje para Eventos<span class="dot"></span></span>
+    <span class="bi">Tratamiento Unisex<span class="dot"></span></span>
+    <span class="bi">Diagnóstico de Piel<span class="dot"></span></span>
+    <span class="bi">Alta Cosmética<span class="dot"></span></span>
+    <span class="bi">Radiofrecuencia<span class="dot"></span></span>
+    <span class="bi">Limpieza Facial Profunda<span class="dot"></span></span>
+    <span class="bi">Maquillaje para Eventos<span class="dot"></span></span>
+    <span class="bi">Tratamiento Unisex<span class="dot"></span></span>
+    <span class="bi">Diagnóstico de Piel<span class="dot"></span></span>
+    <span class="bi">Alta Cosmética<span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- PROMO STRIP — influencia Carmen: promociones visibles -->
+<div class="promo-strip">
+  <div class="promo-in">
+    <p class="promo-text">Bono de radiofrecuencia (4 sesiones) <span>— precio especial en cita de diagnóstico</span></p>
+    <a href="#contacto" class="promo-cta">Consultar oferta</a>
   </div>
 </div>
 
 <!-- SERVICIOS -->
-<section class="services" id="servicios">
+<section class="section" id="servicios" style="background:var(--bg)">
   <div class="wrap">
-    <div class="r">
-      <p class="sec-label">Servicios</p>
-      <h2 class="sec-title">Lo que hacemos <strong>con dedicación</strong></h2>
+    <div class="shdr r">
+      <p class="ey">Servicios</p>
+      <h2 class="sh">Tres tratamientos,<br><strong>pensados para ti</strong></h2>
     </div>
 
-    <!-- Servicio 1: Radiofrecuencia -->
-    <div class="feat r" style="margin-top:3rem">
+    <!-- 01 Radiofrecuencia -->
+    <div class="feat r">
       <div class="feat-img">
-        <!-- imagen relacionada con radiofrecuencia / tecnología estética -->
-        <img src="https://picsum.photos/seed/radiofreq-face-device/900/640" alt="Radiofrecuencia facial y corporal" loading="lazy" />
+        <img src="https://picsum.photos/seed/rf-device-face-warm/960/680" alt="Sesión de radiofrecuencia facial" loading="lazy" />
       </div>
       <div class="feat-body">
-        <div class="feat-num">01</div>
+        <div class="feat-n">01</div>
         <h3 class="feat-name"><strong>Radiofrecuencia</strong><br>Facial y Corporal</h3>
-        <p class="feat-desc">
-          Tecnología de calor controlado que estimula el colágeno, reafirma los tejidos y reduce la flacidez de forma progresiva y sin agujas. Resultados visibles desde la primera sesión, tanto en hombres como en mujeres.
-        </p>
-        <span class="tag">Tratamiento estrella · Unisex</span>
+        <p class="feat-bdg">Tratamiento estrella · Unisex</p>
+        <p class="feat-desc">Calor controlado que estimula el colágeno, reafirma los tejidos y combate la flacidez sin agujas. Resultados visibles desde la primera sesión, sin tiempo de recuperación.</p>
+        <div class="feat-list">
+          <span class="feat-li">Estimula la producción natural de colágeno</span>
+          <span class="feat-li">Reafirma piel flácida en rostro, cuello y cuerpo</span>
+          <span class="feat-li">Sin dolor ni recuperación posterior</span>
+          <span class="feat-li">Apto para hombres y mujeres de cualquier edad</span>
+        </div>
       </div>
     </div>
 
-    <!-- Servicios 2 y 3 -->
-    <div class="cards">
-
-      <!-- Maquillaje profesional -->
+    <!-- 02 y 03 -->
+    <div class="cards-2">
       <div class="card r d1">
-        <div class="card-img">
-          <!-- imagen: maquillaje / novia / evento especial -->
-          <img src="https://picsum.photos/seed/makeup-event-bride/700/400" alt="Maquillaje profesional para eventos" loading="lazy" />
-        </div>
+        <div class="card-img"><img src="https://picsum.photos/seed/makeup-bride-event-warm/700/400" alt="Maquillaje profesional para eventos" loading="lazy" /></div>
         <div class="card-body">
-          <h3 class="card-name">Maquillaje profesional y preparación de la piel para eventos especiales</h3>
-          <p class="card-desc">
-            Protocolo completo que comienza con la preparación de la piel — hidratación, base perfecta y corrección — y culmina con un maquillaje duradero adaptado al tipo de evento: bodas, comuniones, galas o cualquier celebración. Tu imagen siempre impecable.
-          </p>
+          <p class="card-bdg">Eventos especiales</p>
+          <h3 class="card-name">Maquillaje profesional y preparación de la piel</h3>
+          <p class="card-desc">Protocolo completo para bodas, comuniones y galas. Preparamos la piel — hidratación, base y corrección — y aplicamos un maquillaje de larga duración adaptado al estilo y tipo de evento.</p>
         </div>
         <div class="card-foot">
           <span class="dur">Consultar disponibilidad</span>
-          <div class="arrow">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M8 3l3 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="arr"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M8 3l3 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
-
-      <!-- Limpieza facial unisex -->
       <div class="card r d2">
-        <div class="card-img">
-          <!-- imagen: limpieza facial / vapor / piel limpia -->
-          <img src="https://picsum.photos/seed/facial-cleanse-steam/700/400" alt="Limpieza facial profunda unisex" loading="lazy" />
-        </div>
+        <div class="card-img"><img src="https://picsum.photos/seed/facial-clean-steam-skin/700/400" alt="Limpieza facial unisex" loading="lazy" /></div>
         <div class="card-body">
-          <h3 class="card-name">Limpieza facial profunda — Unisex</h3>
-          <p class="card-desc">
-            Tratamiento adaptado tanto para piel masculina como femenina. Elimina impurezas, desobstruye los poros y restaura el equilibrio natural de la piel. Incluye exfoliación, extracción y mascarilla específica según el tipo de piel.
-          </p>
+          <p class="card-bdg">Unisex · Todos los tipos de piel</p>
+          <h3 class="card-name">Limpieza facial profunda</h3>
+          <p class="card-desc">Elimina impurezas, desobstruye los poros y restaura el equilibrio de la piel. Incluye vapor, exfoliación, extracción y mascarilla específica. Igual de efectivo en piel masculina y femenina.</p>
         </div>
         <div class="card-foot">
           <span class="dur">60 – 75 min</span>
-          <div class="arrow">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M8 3l3 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="arr"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M8 3l3 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
+<!-- ANTES / DESPUÉS -->
+<section class="section ba" id="resultados">
+  <div class="wrap">
+    <div class="shdr r">
+      <p class="ey" style="color:var(--accent)">Resultados reales</p>
+      <h2 class="sh" style="color:#fff">Antes y después<br><strong>de cada tratamiento</strong></h2>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card r">
+        <div class="ba-imgs">
+          <img src="https://picsum.photos/seed/before-rf-skin-a1/400/520" alt="Antes de radiofrecuencia" loading="lazy" />
+          <img src="https://picsum.photos/seed/after-rf-skin-glow-a2/400/520" alt="Después de radiofrecuencia" loading="lazy" />
+          <div class="ba-labels"><span class="ba-lbl bl">Antes</span><span class="ba-lbl baf">Después</span></div>
+          <div class="ba-sep"></div>
+        </div>
+        <div class="ba-foot">
+          <div class="ba-tr">Radiofrecuencia facial</div>
+          <div class="ba-ses">4 sesiones · resultado acumulativo</div>
+        </div>
+      </div>
+      <div class="ba-card r d1">
+        <div class="ba-imgs">
+          <img src="https://picsum.photos/seed/before-facial-pores-b1/400/520" alt="Antes de limpieza facial" loading="lazy" />
+          <img src="https://picsum.photos/seed/after-facial-clear-b2/400/520" alt="Después de limpieza facial" loading="lazy" />
+          <div class="ba-labels"><span class="ba-lbl bl">Antes</span><span class="ba-lbl baf">Después</span></div>
+          <div class="ba-sep"></div>
+        </div>
+        <div class="ba-foot">
+          <div class="ba-tr">Limpieza facial profunda</div>
+          <div class="ba-ses">Sesión única · poros limpios al instante</div>
+        </div>
+      </div>
+      <div class="ba-card r d2">
+        <div class="ba-imgs">
+          <img src="https://picsum.photos/seed/before-rf-body-neck-c1/400/520" alt="Antes de radiofrecuencia corporal" loading="lazy" />
+          <img src="https://picsum.photos/seed/after-rf-body-firm-c2/400/520" alt="Después de radiofrecuencia corporal" loading="lazy" />
+          <div class="ba-labels"><span class="ba-lbl bl">Antes</span><span class="ba-lbl baf">Después</span></div>
+          <div class="ba-sep"></div>
+        </div>
+        <div class="ba-foot">
+          <div class="ba-tr">Radiofrecuencia corporal</div>
+          <div class="ba-ses">6 sesiones · reafirmación y remodelación</div>
+        </div>
+      </div>
+    </div>
+    <p class="ba-note r">Las imágenes son ilustrativas. Los resultados individuales pueden variar según el tipo de piel y el protocolo seguido.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIOS — influencia Tacha: nombre + tratamiento + credibilidad -->
+<section class="section testimonios">
+  <div class="wrap">
+    <div class="shdr r">
+      <p class="ey">Opiniones</p>
+      <h2 class="sh">Lo que dicen<br><strong>quienes nos visitan</strong></h2>
+    </div>
+    <div class="tg">
+      <div class="tc r">
+        <div class="stars">
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+        </div>
+        <p class="tq">"Llevo tres meses con sesiones de radiofrecuencia y la diferencia es notable. Encarni explica cada paso y adapta el tratamiento a lo que tu piel necesita en ese momento."</p>
+        <div class="tauth">
+          <div class="tav"><img src="https://picsum.photos/seed/avatar-mujer-marta/80/80" alt="Marta" loading="lazy" /></div>
+          <div><div class="tname">Marta G.</div><div class="tdet">Radiofrecuencia facial · 6 sesiones</div></div>
+        </div>
+      </div>
+      <div class="tc r d1">
+        <div class="stars">
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+        </div>
+        <p class="tq">"Me hizo el maquillaje para la boda de mi hija. La preparación de la piel marcó la diferencia — aguantó todo el día y la noche sin retoques. Un 10 absoluto."</p>
+        <div class="tauth">
+          <div class="tav"><img src="https://picsum.photos/seed/avatar-mujer-carmen/80/80" alt="Carmen" loading="lazy" /></div>
+          <div><div class="tname">Carmen R.</div><div class="tdet">Maquillaje para boda</div></div>
+        </div>
+      </div>
+      <div class="tc r d2">
+        <div class="stars">
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+          <svg class="star" viewBox="0 0 20 20"><path d="M10 1l2.4 4.8 5.3.8-3.9 3.8.9 5.3L10 13.3l-4.8 2.5.9-5.3L2.3 6.6l5.3-.8z"/></svg>
+        </div>
+        <p class="tq">"Soy hombre y al principio dudé, pero la limpieza facial es increíble. Piel completamente renovada. El trato es cercano y profesional. Volvería sin dudar."</p>
+        <div class="tauth">
+          <div class="tav"><img src="https://picsum.photos/seed/avatar-hombre-pablo/80/80" alt="Pablo" loading="lazy" /></div>
+          <div><div class="tname">Pablo M.</div><div class="tdet">Limpieza facial · cliente habitual</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- GALERÍA -->
-<section class="gallery" id="galeria">
+<section class="section galeria" id="galeria">
   <div class="wrap">
-    <div class="r">
-      <p class="sec-label">Galería</p>
-      <h2 class="sec-title">Resultados que <strong>se ven</strong></h2>
+    <div class="shdr r">
+      <p class="ey">Galería</p>
+      <h2 class="sh">Un vistazo al salón<br><strong>y los tratamientos</strong></h2>
     </div>
-    <div class="gallery-grid">
-      <!-- imágenes con seeds específicas por tipo de tratamiento -->
-      <div class="gal-item r">
-        <img src="https://picsum.photos/seed/gal-rf-skin-01/500/640" alt="Resultado radiofrecuencia" loading="lazy" />
-      </div>
-      <div class="gal-item r d1">
-        <img src="https://picsum.photos/seed/gal-makeup-event-02/500/380" alt="Maquillaje evento" loading="lazy" />
-      </div>
-      <div class="gal-item r d2">
-        <img src="https://picsum.photos/seed/gal-facial-clean-03/500/420" alt="Limpieza facial" loading="lazy" />
-      </div>
-      <div class="gal-item r d1">
-        <img src="https://picsum.photos/seed/gal-skin-glow-04/500/500" alt="Piel luminosa tras tratamiento" loading="lazy" />
-      </div>
-      <div class="gal-item r d2">
-        <img src="https://picsum.photos/seed/gal-device-rf-05/500/640" alt="Dispositivo radiofrecuencia" loading="lazy" />
-      </div>
-      <div class="gal-item r d3">
-        <img src="https://picsum.photos/seed/gal-bridal-makeup-06/500/390" alt="Maquillaje nupcial" loading="lazy" />
-      </div>
+    <div class="gal">
+      <div class="gi r"><img src="https://picsum.photos/seed/gal-rf-device-skin/500/640" alt="Radiofrecuencia facial" loading="lazy" /></div>
+      <div class="gi r d1"><img src="https://picsum.photos/seed/gal-makeup-bride-event/500/380" alt="Maquillaje para evento" loading="lazy" /></div>
+      <div class="gi r d2"><img src="https://picsum.photos/seed/gal-facial-steam-clean/500/430" alt="Limpieza facial con vapor" loading="lazy" /></div>
+      <div class="gi r d1"><img src="https://picsum.photos/seed/gal-skin-glow-result/500/490" alt="Resultado piel luminosa" loading="lazy" /></div>
+      <div class="gi r d2"><img src="https://picsum.photos/seed/gal-rf-body-treatment/500/600" alt="Radiofrecuencia corporal" loading="lazy" /></div>
+      <div class="gi r d3"><img src="https://picsum.photos/seed/gal-salon-warm-interior/500/390" alt="Interior del salón" loading="lazy" /></div>
     </div>
   </div>
 </section>
 
-<!-- EL SALÓN -->
-<section class="about" id="salon">
+<!-- FUNDADORA — influencia Tacha: herencia, cita personal, historia -->
+<section class="section fundadora" id="fundadora">
   <div class="wrap">
-    <div class="about-grid">
-      <div class="about-img-wrap r">
-        <div class="about-img">
-          <img src="https://picsum.photos/seed/salon-interior-warm/680/860" alt="Interior del salón de estética" loading="lazy" />
-        </div>
-        <div class="about-badge">
-          <div class="badge-n">+10</div>
-          <div class="badge-t">Años de experiencia</div>
-        </div>
+    <div class="fg-grid">
+      <div class="fg-img-wrap r">
+        <div class="fg-img"><img src="https://picsum.photos/seed/esteticista-portrait-warm/680/850" alt="Encarni Rodriguez" loading="lazy" /></div>
+        <div class="fg-badge"><div class="bdn">+10</div><div class="bdt">Años de experiencia</div></div>
       </div>
       <div>
-        <p class="sec-label r">El salón</p>
-        <h2 class="about-title r d1">Un espacio para <strong>cuidarte de verdad</strong></h2>
-        <p class="about-p r d2">
-          Somos un salón de estética con vocación de servicio y formación continua. Nuestro objetivo es ofrecerte tratamientos efectivos en un ambiente tranquilo, cómodo y profesional.
-        </p>
-        <p class="about-p r d2">
-          Trabajamos con productos de alta cosmética seleccionados por su eficacia y seguridad. Cada tratamiento se adapta a las necesidades específicas de tu piel — sin protocolos genéricos.
-        </p>
-        <div class="about-list r d3">
-          <div class="about-li"><div class="about-dot"></div><span>Formación profesional certificada</span></div>
-          <div class="about-li"><div class="about-dot"></div><span>Productos de alta cosmética</span></div>
-          <div class="about-li"><div class="about-dot"></div><span>Tratamientos para hombres y mujeres</span></div>
-          <div class="about-li"><div class="about-dot"></div><span>Atención personalizada y cercana</span></div>
+        <p class="ey r">El salón</p>
+        <h2 class="fg-title r d1">Un espacio para<br><strong>cuidarte de verdad</strong></h2>
+        <!-- Cita personal inspirada en Tacha -->
+        <p class="fg-quote r d2">"La belleza no tiene edad — tiene atención, constancia y buenos productos."</p>
+        <p class="fg-p r d2">Soy Encarni Rodriguez, esteticista con más de diez años de experiencia y formación continua. Monté este salón con una convicción: que cada persona merece un tratamiento pensado para ella, no un protocolo de catálogo.</p>
+        <p class="fg-p r d2">Trabajo con productos de alta cosmética seleccionados por su eficacia y combino la tecnología de última generación con el trato cercano que no se aprende en ningún manual.</p>
+        <div class="fg-list r d3">
+          <div class="fg-li"><div class="fg-dot"></div><span>Formación profesional certificada</span></div>
+          <div class="fg-li"><div class="fg-dot"></div><span>Productos de alta cosmética</span></div>
+          <div class="fg-li"><div class="fg-dot"></div><span>Tratamientos para hombres y mujeres</span></div>
+          <div class="fg-li"><div class="fg-dot"></div><span>Diagnóstico previo sin compromiso</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACTO -->
-<section class="contact" id="contacto">
+<!-- FAQ -->
+<section class="section faq-sec" id="faq">
   <div class="wrap">
-    <div class="contact-grid">
+    <div class="shdr r">
+      <p class="ey">Preguntas frecuentes</p>
+      <h2 class="sh">Resolvemos tus<br><strong>dudas más comunes</strong></h2>
+    </div>
+    <div class="faq-g">
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿La radiofrecuencia duele?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>No. Es un tratamiento indoloro: se percibe calor agradable en la zona tratada. Apto para pieles sensibles y sin ningún tipo de recuperación posterior.</p></div>
+      </div>
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿Cuántas sesiones de radiofrecuencia necesito?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>Los resultados son visibles desde la primera sesión, aunque para un efecto duradero recomendamos entre 4 y 8 sesiones. En el diagnóstico inicial definimos el protocolo más adecuado para tu piel.</p></div>
+      </div>
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿La limpieza facial es apta para hombres?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>Sí, completamente. Adaptamos el protocolo a la piel masculina — que suele tener poros más dilatados y mayor sebo — con los mismos resultados inmediatos y visibles.</p></div>
+      </div>
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿Con cuánta antelación reservar el maquillaje?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>Para bodas y grandes eventos recomendamos reservar con 2–3 meses de antelación. Realizamos una prueba previa para ajustar el look y asegurarnos de que todo sea perfecto el día del evento.</p></div>
+      </div>
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿Hay tiempo de recuperación tras la radiofrecuencia?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>Ninguno. Puedes retomar tu actividad normal inmediatamente. Es posible una ligera rojez que desaparece en pocas horas.</p></div>
+      </div>
+      <div class="fi">
+        <button class="fq" onclick="tf(this)">¿Con qué frecuencia hacer la limpieza facial?<div class="ficon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="fa"><p>Lo ideal es cada 4–6 semanas. Con ese ritmo mantienes los poros limpios, la piel equilibrada y los tratamientos posteriores son más eficaces.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO — influencia Carmen: horario + dirección + formas de contacto -->
+<section class="section contacto" id="contacto">
+  <div class="wrap">
+    <div class="ct-grid">
       <div>
-        <p class="c-label">Contacto</p>
-        <h2 class="c-title">Reserva tu cita<br><strong>cuando quieras</strong></h2>
-        <p class="c-desc">Escríbenos por Instagram o rellena el formulario y te confirmamos la cita en la mayor brevedad posible.</p>
-        <div class="c-links">
-          <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="c-link">
-            <div class="c-icon">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
-              </svg>
-            </div>
+        <p class="ct-ey r">Contacto</p>
+        <h2 class="ct-title r d1">Reserva tu cita<br><strong>sin compromiso</strong></h2>
+        <p class="ct-sub r d2">Escríbenos por Instagram o rellena el formulario. Respondemos a la mayor brevedad posible.</p>
+
+        <!-- Horario + ubicación (influencia Carmen) -->
+        <div class="ct-info r d3">
+          <div class="ct-ic">
+            <div class="ct-ic-title">Horario</div>
+            <div class="ct-ic-val">Lun – Vie 9:00 – 19:00<br>Sábado 9:00 – 14:00<br>Domingos cerrado</div>
+          </div>
+          <div class="ct-ic">
+            <div class="ct-ic-title">Cita previa</div>
+            <div class="ct-ic-val">Instagram DM<br>o formulario<br>Respuesta en 24 h</div>
+          </div>
+        </div>
+
+        <div class="ct-links r d3">
+          <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="ct-lnk">
+            <div class="ct-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/></svg></div>
             @encarnirodriguezestetica
           </a>
-          <a href="https://www.instagram.com/direct/new/" target="_blank" rel="noopener" class="c-link">
-            <div class="c-icon">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
+          <a href="https://www.instagram.com/direct/new/" target="_blank" rel="noopener" class="ct-lnk">
+            <div class="ct-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             Mensaje directo por Instagram
           </a>
         </div>
-        <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="ig-btn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
-          </svg>
+        <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="ig-btn r d4">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/></svg>
           Seguir en Instagram
         </a>
       </div>
-      <div class="c-form">
+      <div class="ct-form r d1">
         <p class="f-title">Solicitar información</p>
         <form onsubmit="submitForm(event)">
-          <div class="fg">
-            <label class="flabel" for="fn">Nombre</label>
-            <input type="text" id="fn" class="finput" placeholder="Tu nombre" autocomplete="name" />
-          </div>
-          <div class="fg">
-            <label class="flabel" for="fc">Teléfono o email</label>
-            <input type="text" id="fc" class="finput" placeholder="Para contactarte" autocomplete="tel" />
-          </div>
-          <div class="fg">
+          <div class="fg2"><label class="flabel" for="fn">Nombre</label><input type="text" id="fn" class="finput" placeholder="Tu nombre" autocomplete="name" /></div>
+          <div class="fg2"><label class="flabel" for="fc">Teléfono o email</label><input type="text" id="fc" class="finput" placeholder="Para contactarte" autocomplete="tel" /></div>
+          <div class="fg2">
             <label class="flabel" for="fs">Servicio de interés</label>
             <select id="fs" class="finput">
-              <option value="" disabled selected>Selecciona un servicio</option>
+              <option value="" disabled selected>Seleccionar...</option>
               <option>Radiofrecuencia facial</option>
               <option>Radiofrecuencia corporal</option>
               <option>Maquillaje profesional para eventos</option>
               <option>Limpieza facial profunda</option>
-              <option>Otro / Consulta general</option>
+              <option>Diagnóstico de piel gratuito</option>
+              <option>Consulta general</option>
             </select>
           </div>
-          <div class="fg">
-            <label class="flabel" for="fm">Mensaje</label>
-            <textarea id="fm" class="finput" placeholder="¿Alguna consulta o preferencia de horario?"></textarea>
-          </div>
+          <div class="fg2"><label class="flabel" for="fm">Mensaje</label><textarea id="fm" class="finput" placeholder="¿Alguna duda o preferencia de horario?"></textarea></div>
           <button type="submit" class="fsubmit" id="fsb">Enviar solicitud</button>
         </form>
       </div>
@@ -599,7 +702,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-inner">
+  <div class="foot-in">
     <a href="#" class="foot-logo">Encarni<em>.</em></a>
     <span class="foot-copy">&copy; 2025 Encarni Rodriguez — Salón de Estética</span>
     <a href="https://www.instagram.com/encarnirodriguezestetica/" target="_blank" rel="noopener" class="foot-ig">@encarnirodriguezestetica</a>
@@ -607,20 +710,22 @@
 </footer>
 
 <script>
-  // Nav on scroll
-  const nav = document.getElementById('nav');
-  addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 18), { passive: true });
-
-  // Scroll reveal
+  // Reveal
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, {threshold:0.08, rootMargin:'0px 0px -28px 0px'});
   document.querySelectorAll('.r').forEach(el => obs.observe(el));
-
-  // Hero revela de inmediato
   addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.hero .r').forEach((el, i) => setTimeout(() => el.classList.add('on'), 60 + i * 55));
+    document.querySelectorAll('.hero .r').forEach((el,i) => setTimeout(()=>el.classList.add('on'), 60+i*55));
   });
+
+  // FAQ
+  function tf(btn) {
+    const item = btn.closest('.fi');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.fi.open').forEach(i => i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  }
 
   // Form
   function submitForm(e) {
@@ -629,7 +734,7 @@
     btn.textContent = 'Mensaje enviado';
     btn.style.background = '#4a7a50';
     btn.disabled = true;
-    setTimeout(() => { btn.textContent = 'Enviar solicitud'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3500);
+    setTimeout(() => { btn.textContent='Enviar solicitud'; btn.style.background=''; btn.disabled=false; e.target.reset(); }, 3500);
   }
 </script>
 </body>
