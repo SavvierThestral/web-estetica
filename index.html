@@ -250,28 +250,187 @@
     .r.on { opacity:1; transform:none; }
     .d1{transition-delay:.09s} .d2{transition-delay:.18s} .d3{transition-delay:.27s} .d4{transition-delay:.36s}
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:1100px){ .ba-grid,.tg{grid-template-columns:1fr 1fr;} }
-    @media(max-width:768px){
-      :root{--nav-h:58px}
-      .topbar-in>:not(:first-child){display:none}
-      .nav-links{display:none}
-      .hero{grid-template-columns:1fr; min-height:auto}
-      .hero-copy{padding:2.5rem 1.25rem 2rem}
-      .hero-img{height:56vw; min-height:250px}
-      .feat{grid-template-columns:1fr}
-      .feat-img img{min-height:250px}
-      .feat-body{padding:2rem 1.5rem}
-      .cards-2{grid-template-columns:1fr}
-      .ba-grid,.tg{grid-template-columns:1fr}
-      .fg-grid{grid-template-columns:1fr; gap:3rem}
-      .fg-badge{right:.75rem}
-      .faq-g{grid-template-columns:1fr; gap:0}
-      .ct-grid{grid-template-columns:1fr; gap:3rem}
-      .ct-info{grid-template-columns:1fr}
-      .foot-in{flex-direction:column; gap:.5rem; text-align:center}
+    /* ── HAMBURGER ── */
+    .nav-burger {
+      display:none; flex-direction:column; justify-content:center; gap:5px;
+      width:40px; height:40px; background:none; border:none; cursor:pointer;
+      padding:6px; border-radius:.5rem; transition:background .2s;
     }
-    @media(max-width:480px){ .gal{columns:1} .fg-list{grid-template-columns:1fr} .hero-trust{gap:1.75rem} }
+    .nav-burger:hover { background:var(--accent-l); }
+    .nav-burger span {
+      display:block; width:22px; height:2px; background:var(--dark);
+      border-radius:2px; transition:transform .3s, opacity .3s;
+      transform-origin:center;
+    }
+    .nav-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .nav-drawer {
+      display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:300;
+    }
+    .nav-drawer.open { display:block; }
+    .drawer-overlay {
+      position:absolute; inset:0; background:rgba(28,32,26,.55);
+      backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+      animation:fadeIn .25s ease;
+    }
+    .drawer-panel {
+      position:absolute; top:0; right:0; bottom:0; width:min(280px,80vw);
+      background:var(--bg); display:flex; flex-direction:column;
+      padding:1.5rem; box-shadow:-8px 0 32px rgba(0,0,0,.12);
+      animation:slideIn .3s cubic-bezier(.16,1,.3,1);
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes slideIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
+    .drawer-close {
+      align-self:flex-end; width:36px; height:36px; display:grid; place-items:center;
+      background:var(--accent-l); border:none; border-radius:50%; cursor:pointer;
+      color:var(--dark); margin-bottom:1.5rem; transition:background .2s;
+    }
+    .drawer-close:hover { background:var(--border); }
+    .drawer-links { list-style:none; display:flex; flex-direction:column; gap:0; }
+    .drawer-links li { border-bottom:1px solid var(--border); }
+    .drawer-links a {
+      display:block; padding:1rem .25rem; font-size:1rem; font-weight:500;
+      color:var(--dark); text-decoration:none; letter-spacing:.01em;
+      transition:color .2s, padding-left .2s;
+    }
+    .drawer-links a:hover { color:var(--accent); padding-left:.5rem; }
+    .drawer-cta {
+      margin-top:auto; padding-top:2rem; display:block;
+      font-size:.95rem; font-weight:500; padding:.9rem; text-align:center;
+      background:var(--accent); color:#fff; border-radius:100px;
+      text-decoration:none; transition:background .2s;
+    }
+    .drawer-cta:hover { background:var(--accent-d); }
+
+    /* ── STICKY MOBILE CTA ── */
+    .mobile-cta-bar {
+      display:none; position:fixed; bottom:0; left:0; right:0; z-index:150;
+      padding:.85rem 1.25rem calc(.85rem + env(safe-area-inset-bottom));
+      background:rgba(245,243,238,.97);
+      backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+      border-top:1px solid var(--border);
+      box-shadow:0 -4px 20px rgba(0,0,0,.08);
+    }
+    .mobile-cta-bar a {
+      display:block; width:100%; padding:.9rem; text-align:center;
+      background:var(--accent); color:#fff; border-radius:100px;
+      font-size:.95rem; font-weight:500; text-decoration:none;
+      transition:background .2s, transform .1s;
+    }
+    .mobile-cta-bar a:active { transform:scale(.97); }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet: 1024 – 1100 */
+    @media(max-width:1100px){
+      .ba-grid,.tg { grid-template-columns:1fr 1fr; }
+      .gal { columns:2; }
+    }
+
+    /* Tablet: 768 – 1024 */
+    @media(max-width:1024px){
+      .section { padding:5.5rem 0; }
+      .feat { grid-template-columns:1fr; }
+      .feat-img img { min-height:340px; aspect-ratio:16/7; }
+      .feat-body { padding:2.5rem; }
+      .fg-grid { gap:4rem; }
+    }
+
+    /* Mobile: < 768 */
+    @media(max-width:768px){
+      :root { --nav-h:58px; }
+
+      /* Topbar: solo IG en móvil */
+      .topbar-item { display:none; }
+      .topbar-in { justify-content:center; }
+
+      /* Nav */
+      .nav-links, .nav-cta { display:none; }
+      .nav-burger { display:flex; }
+      .mobile-cta-bar { display:block; }
+
+      /* Padding de secciones */
+      .section { padding:4rem 0; }
+      .shdr { margin-bottom:2.25rem; }
+
+      /* Hero: columna única, imagen debajo del texto */
+      .hero {
+        grid-template-columns:1fr;
+        grid-template-rows:auto auto;
+        min-height:auto;
+      }
+      .hero-copy {
+        padding:2.75rem 1.25rem 2rem;
+        order:1;
+      }
+      .hero-img {
+        order:2;
+        height:72vw;
+        min-height:260px;
+        max-height:400px;
+      }
+      /* Quitar fade lateral en móvil */
+      .hero-img::after { display:none; }
+      .hero-trust { gap:1.5rem; margin-top:2rem; padding-top:1.5rem; }
+      .hero-btns { flex-direction:column; align-items:stretch; }
+      .hero-btns a { text-align:center; }
+      /* Espacio para la sticky bar */
+      body { padding-bottom:calc(60px + env(safe-area-inset-bottom)); }
+
+      /* Promo */
+      .promo-in { flex-direction:column; gap:.5rem; }
+
+      /* Servicios */
+      .feat { grid-template-columns:1fr; }
+      .feat-img img { min-height:220px; aspect-ratio:4/3; }
+      .feat-body { padding:1.75rem 1.25rem; }
+      .feat-n { font-size:3.5rem; }
+      .cards-2 { grid-template-columns:1fr; }
+
+      /* Antes/después */
+      .ba-grid { grid-template-columns:1fr; gap:1rem; }
+      .ba-imgs img { aspect-ratio:1/1; }
+
+      /* Testimonios */
+      .tg { grid-template-columns:1fr; }
+
+      /* Galería */
+      .gal { columns:2; column-gap:.75rem; }
+
+      /* Fundadora */
+      .fg-grid { grid-template-columns:1fr; gap:3rem; }
+      .fg-img-wrap::before { display:none; }
+      .fg-badge { right:.75rem; bottom:1.25rem; }
+      .fg-list { grid-template-columns:1fr; }
+
+      /* FAQ */
+      .faq-g { grid-template-columns:1fr; gap:0; }
+
+      /* Contacto */
+      .ct-grid { grid-template-columns:1fr; gap:2.5rem; }
+      .ct-info { grid-template-columns:1fr 1fr; }
+
+      /* Footer */
+      .foot-in { flex-direction:column; gap:.5rem; text-align:center; }
+    }
+
+    /* Mobile S: < 480 */
+    @media(max-width:480px){
+      .gal { columns:1; }
+      .ct-info { grid-template-columns:1fr; }
+      .hero-trust { flex-wrap:wrap; gap:1.25rem 2rem; }
+      .ba-imgs img { aspect-ratio:3/4; }
+    }
+
+    /* Desktop grande: > 1400 */
+    @media(min-width:1400px){
+      .section { padding:9rem 0; }
+      .feat-img img { min-height:540px; }
+    }
   </style>
 </head>
 <body>
@@ -303,10 +462,36 @@
       <li><a href="#contacto">Contacto</a></li>
     </ul>
     <a href="#contacto" class="nav-cta">Reservar cita</a>
+    <button class="nav-burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- HERO — foto: mujer recibiendo tratamiento facial (Unsplash verified) -->
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <div class="drawer-panel">
+    <button class="drawer-close" id="drawer-close" aria-label="Cerrar menú">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <ul class="drawer-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#fundadora">El salón</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="drawer-cta">Reservar cita</a>
+  </div>
+</div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="mobile-cta-bar" aria-hidden="true">
+  <a href="#contacto">Reservar cita ahora</a>
+</div>
+
+<!-- HERO -->
 <section class="hero">
   <div class="hero-copy">
     <p class="hero-kicker r">Centro de Estética Profesional</p>
@@ -324,11 +509,17 @@
     </div>
   </div>
   <div class="hero-img">
-    <!-- Mujer recibiendo tratamiento facial de spa — Unsplash @enginakyurt -->
     <img
       src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=82&auto=format&fit=crop"
+      srcset="
+        https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=480&q=75&auto=format&fit=crop 480w,
+        https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=768&q=80&auto=format&fit=crop 768w,
+        https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1100&q=82&auto=format&fit=crop 1100w
+      "
+      sizes="(max-width:768px) 100vw, 50vw"
       alt="Tratamiento facial profesional en el salón"
       loading="eager"
+      fetchpriority="high"
     />
   </div>
 </section>
@@ -694,19 +885,66 @@
 </footer>
 
 <script>
+  // ── Scroll reveal ──
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
-  }, {threshold:0.08, rootMargin:'0px 0px -28px 0px'});
+  }, {threshold:0.07, rootMargin:'0px 0px -24px 0px'});
   document.querySelectorAll('.r').forEach(el => obs.observe(el));
   addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.hero .r').forEach((el,i) => setTimeout(()=>el.classList.add('on'), 60+i*55));
   });
+
+  // ── Hamburger / Drawer ──
+  const burger  = document.getElementById('burger');
+  const drawer  = document.getElementById('drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const closeBtn= document.getElementById('drawer-close');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  overlay.addEventListener('click', closeDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+
+  // Cerrar al hacer clic en un enlace del drawer
+  document.querySelectorAll('.drawer-links a, .drawer-cta').forEach(a => {
+    a.addEventListener('click', closeDrawer);
+  });
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+  // ── Ocultar sticky CTA al llegar al formulario ──
+  const contactSection = document.getElementById('contacto');
+  const mobileCta = document.querySelector('.mobile-cta-bar');
+  if(contactSection && mobileCta) {
+    const ctaObs = new IntersectionObserver(entries => {
+      mobileCta.style.opacity = entries[0].isIntersecting ? '0' : '1';
+      mobileCta.style.pointerEvents = entries[0].isIntersecting ? 'none' : '';
+    }, {threshold:0.1});
+    ctaObs.observe(contactSection);
+  }
+
+  // ── FAQ ──
   function tf(btn) {
     const item = btn.closest('.fi');
     const isOpen = item.classList.contains('open');
     document.querySelectorAll('.fi.open').forEach(i => i.classList.remove('open'));
     if(!isOpen) item.classList.add('open');
   }
+
+  // ── Form ──
   function submitForm(e) {
     e.preventDefault();
     const btn = document.getElementById('fsb');
